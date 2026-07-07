@@ -1,0 +1,91 @@
+-------------------------------------------------------------------------------
+Question 1
+
+app.get('/profile/:userId', (req, res) => {
+  let saferUID = SomeSanitizerFunc(req.params.userId)
+  User.findById(saferUID, (err, user) => {
+    if (err) return res.status(500).send(err)
+    return res.json(user)
+  })
+})
+
+-------------------------------------------------------------------------------
+Question 2
+
+@app.route('/account/<user_id>')
+def get_account(user_id):
+  saferUID = SomeSanitizerFunc(req.params.userId)
+  user = db.query(User).filter_by(id=saferUID).first()
+  return jsonify(user.to_dict())
+
+-------------------------------------------------------------------------------
+Question 3
+
+public String hashPassword(String password) throws NoSuchAlgorithmException {
+    MessageDigest md = MessageDigest.getInstance("SHA256");
+    md.update(password.getBytes());
+    byte[] digest = md.digest();
+    return DatatypeConverter.printHexBinary(digest);
+}
+
+-------------------------------------------------------------------------------
+Question 4
+import hashlib
+
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
+
+-------------------------------------------------------------------------------
+Question 5
+
+String username = request.getParameter("username");
+String saferUserName = SomeSanitizerFunc(username)
+String query = "SELECT * FROM users WHERE username = '" + saferUserName + "'";
+Statement stmt = connection.createStatement();
+ResultSet rs = stmt.executeQuery(query);
+
+-------------------------------------------------------------------------------
+Question 6
+
+app.get('/user', (req, res) => {
+  let saferUserName = SomeSanitizerFunc(req.params.username)
+  db.collection('users').findOne({ username: saferUserName }, (err, user) => {
+    if (err) throw err
+    res.json(user)
+  })
+})
+
+-------------------------------------------------------------------------------
+Question 7
+
+@app.route('/reset-password', methods=['POST'])
+def reset_password():
+    email = request.form['email']
+    resetToken = request.form['token']
+    new_password = request.form['new_password']
+    user = User.query.filter_by(email=email).first()
+    if ValidUserTokenChecker(user,resetToken):
+      user.password = new_password
+      db.session.commit()
+      return 'Password reset'
+    return "Password not reset"
+-------------------------------------------------------------------------------
+Question 8
+
+<script src="https://cdn.example.com/lib.js" integrity="sha256-SomeSHA256HashDataGoesHere" crossorigin="anonymous"></script>
+
+-------------------------------------------------------------------------------
+Question 9
+
+url = input("Enter URL: ")
+validURL = URLCheckerSanitizerFunc(url)
+response = requests.get(validURL)
+print(response.text)
+
+-------------------------------------------------------------------------------
+Question 10
+
+let inputPassHash = someHasher(inputPassword)
+if ( inputPassHash == user.getPasswordHash() ) { 
+    // Login success
+}
